@@ -24,10 +24,12 @@ const GameBoard = (function () {
 
 // controls the flow of the game
 function GameFlow(player0, player1) {
-    let gameDiv = document.getElementById('gameDiv');
+    const gameDiv = document.getElementById('gameDiv');
+    const winnerDiv = document.getElementById('winner');
+    winnerDiv.style.display = 'none'
 
     // start new game
-    let newGame = GameBoard.newGameBoard();
+    const newGame = GameBoard.newGameBoard();
     gameDiv.style.display = 'inline-grid';
 
     // place inputted players into an array
@@ -35,66 +37,82 @@ function GameFlow(player0, player1) {
 
     // set an active player
     let activePlayer = players[0];
+    let activeToken = 'X';
 
     // func to switch player
     const switchPlayerTurn = () => { activePlayer = activePlayer === players[0] ? players[1] : players[0]; };
     const getActivePlayer = () => activePlayer;
 
+    // change token between plays
+    const switchToken = () => { activeToken = activeToken === 'X' ? 'O' : 'X' };
+
     // add a listener to each box
     document.querySelectorAll(".gameBox").forEach(box => {
         box.addEventListener("click", boxClickHandler)
+        box.innerText = '';
     });
+
 
     // handling the click and getting the position
     function boxClickHandler(e) {
         const row = e.target.dataset.row;
         const col = e.target.dataset.col;
+        const id = e.target.dataset.id;
         if (!row || !col) return;
-        playRound(row, col)
+        playRound(row, col, id, newGame)
     }
 
     // play the round
-    const playRound = (row, col) => {
+    const playRound = (row, col, id, newGame) => {
+        // checking to if box is not empty
         if (newGame[row][col] != '') {
             console.log(`space already taken, try again ${activePlayer.name}`)
             return;
         } else {
-            newGame[row][col] = activePlayer.name;
+            newGame[row][col] = activeToken;
+            const activeBox = document.getElementById(id);
+            activeBox.innerText = activeToken;
         }
         console.log(`${activePlayer.name} has placed row ${row} and column ${col}`)
 
         // Usage in your existing logic
-        if (checkWinner(newGame, activePlayer.name)) {
-            console.log(newGame[0])
-            console.log(newGame[1])
-            console.log(newGame[2])
-            console.log(`${activePlayer.name} Wins!!!`);
+        if (checkWinner(newGame, activeToken)) {
+            gameDiv.style.display = 'none'
+            winnerDiv.innerText = `${activePlayer.name} Wins!!!`;
+            winnerDiv.style.display = 'block'
+            return;
+        } else if (checkDraw(newGame)) {
+            gameDiv.style.display = 'none'
+            winnerDiv.innerText = 'Draw!';
+            winnerDiv.style.display = 'block'
             return;
         }
 
+
         switchPlayerTurn(); // run switch after title placement has happened GameBoard object
+        switchToken(); // switch tokens 
 
         // prints who's turn it is
         printNewRound()
-
-        // play again
-        playRound()
     }
 
     const printNewRound = () => {
-        // visual see board in console
-        console.log(newGame[0])
-        console.log(newGame[1])
-        console.log(newGame[2])
-        console.log(`${getActivePlayer().name}'s turn.`);
+        // show who's go is it
+        if (activePlayer == players[0]) {
+            document.querySelector('.player0').className += ' active';
+            document.querySelector('.player1').className = 'player1';
+        } else {
+            document.querySelector('.player1').className += ' active';
+            document.querySelector('.player0').className = 'player0';
+        }
     };
 
     // check to see who the winner is
-    function checkWinner(newGame, playerName) {
+    function checkWinner(newGame, activeToken) {
         const size = newGame.length;
 
         // Helper function to check if all values in an array are the same
-        const allEqual = arr => arr.every(val => val === playerName);
+        const allEqual = arr => arr.every(val => val === activeToken);
 
         // Check rows and columns
         for (let i = 0; i < size; i++) {
@@ -117,7 +135,22 @@ function GameFlow(player0, player1) {
         return false;
     }
 
-    return { playRound }
+    function checkDraw(newGame) {
+        let count = 0
+        newGame.map((boxes) => {
+            boxes.map((box) => {
+            if (box != '') {
+                count++;
+            }else{
+                return false;
+            } 
+            })
+        })
+        if (count == 9 ){
+            return true;
+        }
+        return false;
+    }
 }
 
 document.addEventListener('DOMContentLoaded', function () {

@@ -9,8 +9,10 @@
 
 ## Problems encountered
 - Resetting the GameBoard once game is finished.
+- checking for a draw.
 
 ## New skills
+- Using `.map()` on a 2D array twice to check all the boxes.
 
 
 ## languages
@@ -28,12 +30,13 @@ sudo:
 - [x] find a way to start a fresh board when there is a winner.
 - [x] Refactoring the winner checker using `.map()` and mapping over the arrays instead of using `&&`
 - [x] create object for displaying the board 
-- [ ] render the board onto the DOM
+- [x] render the board onto the DOM
 - [x] handle clicking on the DOM space to add the users input
-- [ ] handle player not selecting an already taken spot
+- [x] handle player not selecting an already taken spot
 - [ ] user able to add name
-- [ ] start and restart button 
-- [ ] handle when i player wins and show this with a show element
+- [x] start and restart button 
+- [x] handle when i player wins and show this with a show element
+- [ ] check for any refactoring
 
 game flow
 - start game new board
