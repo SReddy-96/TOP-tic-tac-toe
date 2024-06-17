@@ -5,17 +5,30 @@ function player(name) {
     return { name, sayName }
 }
 
-// gameboard module (IIFE) 
+// GameBoard module (IIFE) 
 const GameBoard = (function () {
-    let emptyBoard = [['', '', ''], ['', '', ''], ['', '', '']];
-    const newGame = () => emptyBoard;
-    return { newGame }
+    const rows = 3;
+    const cols = 3;
+    const emptyBoard = []; // creating an empty 2D array
+    const newGameBoard = () => {
+        for (let i = 0; i < rows; i++) {
+            emptyBoard[i] = [];
+            for (let j = 0; j < cols; j++) {
+                emptyBoard[i][j] = '';
+            }
+        }
+        return emptyBoard
+    };
+    return { newGameBoard }
 })()
 
+// controls the flow of the game
 function GameFlow(player0, player1) {
+    let gameDiv = document.getElementById('gameDiv');
 
     // start new game
-    let newGame = GameBoard.newGame();
+    let newGame = GameBoard.newGameBoard();
+    gameDiv.style.display = 'inline-grid';
 
     // place inputted players into an array
     const players = [player0, player1]
@@ -27,14 +40,24 @@ function GameFlow(player0, player1) {
     const switchPlayerTurn = () => { activePlayer = activePlayer === players[0] ? players[1] : players[0]; };
     const getActivePlayer = () => activePlayer;
 
+    // add a listener to each box
+    document.querySelectorAll(".gameBox").forEach(box => {
+        box.addEventListener("click", boxClickHandler)
+    });
+
+    // handling the click and getting the position
+    function boxClickHandler(e) {
+        const row = e.target.dataset.row;
+        const col = e.target.dataset.col;
+        if (!row || !col) return;
+        playRound(row, col)
+    }
 
     // play the round
-    const playRound = () => {
-        const row = prompt('row')
-        const col = prompt('col')
+    const playRound = (row, col) => {
         if (newGame[row][col] != '') {
             console.log(`space already taken, try again ${activePlayer.name}`)
-            return playRound()
+            return;
         } else {
             newGame[row][col] = activePlayer.name;
         }
@@ -42,13 +65,16 @@ function GameFlow(player0, player1) {
 
         // Usage in your existing logic
         if (checkWinner(newGame, activePlayer.name)) {
+            console.log(newGame[0])
+            console.log(newGame[1])
+            console.log(newGame[2])
             console.log(`${activePlayer.name} Wins!!!`);
             return;
         }
 
-        switchPlayerTurn(); // run switch after title placement has happened Gameboard object
+        switchPlayerTurn(); // run switch after title placement has happened GameBoard object
 
-        // prints whos turn it is
+        // prints who's turn it is
         printNewRound()
 
         // play again
@@ -91,7 +117,16 @@ function GameFlow(player0, player1) {
         return false;
     }
 
-
-    // initial start
-    playRound()
+    return { playRound }
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+    const startButton = document.getElementById('start')
+
+
+    startButton.addEventListener('click', function () {
+        const steve = player('steve')
+        const beth = player('beth')
+        GameFlow(steve, beth)
+    })
+});

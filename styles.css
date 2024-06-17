@@ -1,0 +1,103 @@
+/* CSS Reset */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+* {
+    margin: 0;
+}
+
+body {
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+    display: block;
+    max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+    font: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    overflow-wrap: break-word;
+}
+
+#root,
+#__next {
+    isolation: isolate;
+}
+
+/* ---- */
+
+.container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    background-color: hsl(0, 0%, 97%);
+}
+
+/* names */
+.names {
+    padding: 0.5rem;
+    width: 320px;
+    height: 90px;
+    display: flex;
+    justify-content: space-evenly;
+    border-radius: 10px;
+    margin: 10px 0px;
+}
+
+.player0,
+.player1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid hsl(240, 100%, 70%);
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+    height: 70px;
+
+}
+
+.player0:hover,
+.player1:hover {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border: 2px solid hsl(240, 100%, 70%);
+}
+
+
+/* game */
+#gameDiv {
+    display: none;
+    grid-template-rows: 100px 100px 100px;
+    grid-template-columns: 100px 100px 100px;
+    gap: 10px;
+    background-color: rgba(0, 0, 0, 0.582);
+    padding: 0.5rem;
+}
+
+.gameBox {
+    border: 1px solid black;
+    background-color: aliceblue;
+    cursor: pointer;
+}

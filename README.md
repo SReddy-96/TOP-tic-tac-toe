@@ -8,6 +8,7 @@
 
 
 ## Problems encountered
+- Resetting the GameBoard once game is finished.
 
 ## New skills
 
@@ -24,11 +25,11 @@ sudo:
 - [x] one object to store the player.
 - [x] one object to control the flow of the game
 - [ ] Using factories as much as possible and nesting everything inside
-- [ ] find a way to start a fresh board when there is a winner.
+- [x] find a way to start a fresh board when there is a winner.
 - [x] Refactoring the winner checker using `.map()` and mapping over the arrays instead of using `&&`
-- [ ] create object for displaying the board 
+- [x] create object for displaying the board 
 - [ ] render the board onto the DOM
-- [ ] handle clicking on the DOM space to add the users input
+- [x] handle clicking on the DOM space to add the users input
 - [ ] handle player not selecting an already taken spot
 - [ ] user able to add name
 - [ ] start and restart button 
@@ -46,6 +47,5 @@ initialize in console with this:
 ```
 const steve = player('steve')
 const beth = player('beth')
-
 GameFlow(steve, beth)
 ```
