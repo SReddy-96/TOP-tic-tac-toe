@@ -17,14 +17,14 @@
                 <div class="player0Title">
                     <h3>Player 1</h3>
                 </div>
-                <div class="player0Name">steve</div>
+                <div class="player0Name"><input id="name1Input" type="text" placeholder="Name" max="15" name="name1"></div>
 
             </div>
             <div class="player1">
                 <div class="player1Title">
                     <h3>Player 2</h3>
                 </div>
-                <div class="player1Name">Beth</div>
+                <div class="player1Name"><input id="name2Input" type="text" placeholder="Name" max="15" name="name2"></div>
 
             </div>
         </div>
@@ -41,7 +41,8 @@
         </div>
         <div id="winner"></div>
         <div class="buttons">
-            <button id="start">Start / Reset</button>
+            <button id="start">Start</button>
+            <button id="reset" onClick="window.location.reload();">Reset</button>
         </div>
     </div>
     <script src="index.js"></script>

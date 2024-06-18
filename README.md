@@ -10,9 +10,12 @@
 ## Problems encountered
 - Resetting the GameBoard once game is finished.
 - checking for a draw.
+- How to not ask for the name on every turn.
 
 ## New skills
 - Using `.map()` on a 2D array twice to check all the boxes.
+- using `window.location.reload()` to reload the page so the user can input new names.
+- When the game starts again, it checks to see if the inputs are hidden.
 
 
 ## languages
@@ -33,10 +36,11 @@ sudo:
 - [x] render the board onto the DOM
 - [x] handle clicking on the DOM space to add the users input
 - [x] handle player not selecting an already taken spot
-- [ ] user able to add name
+- [x] user able to add name
 - [x] start and restart button 
 - [x] handle when i player wins and show this with a show element
 - [ ] check for any refactoring
+- [ ] sort tile animation
 
 game flow
 - start game new board
@@ -52,3 +56,4 @@ const steve = player('steve')
 const beth = player('beth')
 GameFlow(steve, beth)
 ```
+

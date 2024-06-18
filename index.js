@@ -46,26 +46,27 @@ function GameFlow(player0, player1) {
     // change token between plays
     const switchToken = () => { activeToken = activeToken === 'X' ? 'O' : 'X' };
 
-    // add a listener to each box
-    document.querySelectorAll(".gameBox").forEach(box => {
-        box.addEventListener("click", boxClickHandler)
-        box.innerText = '';
-    });
-
-
     // handling the click and getting the position
-    function boxClickHandler(e) {
+    const boxClickHandler = function (e) {
         const row = e.target.dataset.row;
         const col = e.target.dataset.col;
         const id = e.target.dataset.id;
         if (!row || !col) return;
-        playRound(row, col, id, newGame)
+        return playRound(row, col, id, newGame)
     }
+
+    // add a listener to each box
+    document.querySelectorAll(".gameBox").forEach(box => {
+        box.innerText = '';
+        box.removeEventListener('click', boxClickHandler) // remove old event listener 
+        box.addEventListener("click", boxClickHandler, { once: true }); // using once to only have one handler at a time.
+
+    });
 
     // play the round
     const playRound = (row, col, id, newGame) => {
         // checking to if box is not empty
-        if (newGame[row][col] != '') {
+        if (newGame[row][col] !== '') {
             console.log(`space already taken, try again ${activePlayer.name}`)
             return;
         } else {
@@ -135,31 +136,52 @@ function GameFlow(player0, player1) {
         return false;
     }
 
+    // check for draw, using map twice with a 2D array. Also, counting if the boxes are full.
     function checkDraw(newGame) {
         let count = 0
         newGame.map((boxes) => {
             boxes.map((box) => {
-            if (box != '') {
-                count++;
-            }else{
-                return false;
-            } 
+                if (box != '') {
+                    count++;
+                } else {
+                    return false;
+                }
             })
         })
-        if (count == 9 ){
+        if (count == 9) {
             return true;
         }
         return false;
     }
 }
 
+
 document.addEventListener('DOMContentLoaded', function () {
     const startButton = document.getElementById('start')
-
+    const name1Input = document.querySelector('#name1Input');
+    const name2Input = document.querySelector('#name2Input');
+    const player0Name = document.querySelector('.player0Name');
+    const player1Name = document.querySelector('.player1Name');
 
     startButton.addEventListener('click', function () {
-        const steve = player('steve')
-        const beth = player('beth')
-        GameFlow(steve, beth)
+
+        // check to see if this is not the first go
+        if (name1Input.className == 'hide' && name2Input.className == 'hide') {
+            const player1 = player(player0Name.innerText);
+            const player2 = player(player1Name.innerText);
+            GameFlow(player1, player2)
+        } else {
+            name1Input.className = 'hide';
+            name2Input.className = 'hide';
+            
+            player0Name.innerText = name1Input.value;
+            player1Name.innerText = name2Input.value;
+
+            const player1 = player(name1Input.value);
+            const player2 = player(name2Input.value);
+            
+            GameFlow(player1, player2)
+        }
+
     })
 });

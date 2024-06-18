@@ -47,18 +47,23 @@ h6 {
 
 /* ---- */
 
+:root {
+    --box-background-color: hsl(0, 0%, 97%);
+}
+
 .container {
     display: flex;
     align-items: center;
     flex-direction: column;
     height: 100vh;
     background-color: hsl(0, 0%, 97%);
+    padding-top: 10px;
 }
 
 /* names */
 .names {
     padding: 0.5rem;
-    width: 320px;
+    width: 40%;
     height: 90px;
     display: flex;
     justify-content: space-evenly;
@@ -75,13 +80,26 @@ h6 {
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
     padding: 0.5rem 1rem;
     border-radius: 10px;
-    height: 70px;
+    height: 80px;
+    background-color: var(--box-background-color);
 
+}
+
+.hide {
+    display: none;
 }
 
 .active {
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     border: 2px solid hsl(240, 100%, 70%);
+}
+
+#name1Input,
+#name2Input {
+    border: 1px solid grey;
+    border-radius: 6px;
+    box-shadow: none;
+    padding: 2px 8px;
 }
 
 
@@ -97,10 +115,32 @@ h6 {
 
 .gameBox {
     border: 1px solid black;
-    background-color: aliceblue;
+    background-color: white;
     cursor: pointer;
     font-size: 5rem;
     text-align: center;
+    line-height: 1.2;
+}
+
+.gameBox:hover {
+    background-color: hsl(0, 0%, 94%);
+}
+
+@keyframes pushGameBox {
+    from {
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+    }
+
+    to {
+        box-shadow: none;
+    }
+}
+
+.gameBox:active {
+    background-color: white;
+    animation-name: pushGameBox;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
 }
 
 /* winner div */
@@ -112,4 +152,68 @@ h6 {
     text-align: center;
     font-size: xx-large;
     padding-top: 3rem;
+}
+
+/* buttons */
+
+button {
+    margin: 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    background-color: var(--box-background-color);
+    cursor: pointer;
+}
+
+#start {
+    border: 1px solid hsl(240, 100%, 70%);
+}
+
+#reset {
+    border: 1px solid hsl(130, 95%, 40%);
+}
+
+@keyframes growStart {
+    from {
+        background-color: var(--box-background-color);
+    }
+
+    to {
+        background-color: hsl(240, 100%, 70%);
+    }
+}
+
+#start:hover {
+    animation-name: growStart;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border: 2px solid hsl(240, 100%, 70%);
+}
+
+#start:active {
+    border: 1px solid hsl(240, 100%, 70%);
+    background-color: var(--box-background-color)
+}
+
+@keyframes growReset {
+    from {
+        background-color: var(--box-background-color);
+    }
+
+    to {
+        background-color: hsl(130, 100%, 70%);
+    }
+}
+
+#reset:hover {
+    animation-name: growReset;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border: 2px solid hsl(130, 100%, 70%);
+}
+
+#reset:active {
+    border: 1px solid hsl(130, 95%, 40%);
+    background-color: var(--box-background-color)
 }
