@@ -1,14 +1,13 @@
 
 // player object
 function player(name) {
-    const sayName = () => { console.log(name) };
-    return { name, sayName }
+    return { name}
 }
 
 // GameBoard module (IIFE) 
 const GameBoard = (function () {
     const rows = 3;
-    const cols = 3;
+    const cols = 3; 
     const emptyBoard = []; // creating an empty 2D array
     const newGameBoard = () => {
         for (let i = 0; i < rows; i++) {
@@ -55,7 +54,7 @@ function GameFlow(player0, player1) {
         return playRound(row, col, id, newGame)
     }
 
-    // add a listener to each box
+    // add a listener to each box, remove old one. Change Inner text
     document.querySelectorAll(".gameBox").forEach(box => {
         box.innerText = '';
         box.removeEventListener('click', boxClickHandler) // remove old event listener 
@@ -65,6 +64,7 @@ function GameFlow(player0, player1) {
 
     // play the round
     const playRound = (row, col, id, newGame) => {
+        
         // checking to if box is not empty
         if (newGame[row][col] !== '') {
             console.log(`space already taken, try again ${activePlayer.name}`)
@@ -74,7 +74,6 @@ function GameFlow(player0, player1) {
             const activeBox = document.getElementById(id);
             activeBox.innerText = activeToken;
         }
-        console.log(`${activePlayer.name} has placed row ${row} and column ${col}`)
 
         // Usage in your existing logic
         if (checkWinner(newGame, activeToken)) {
@@ -171,12 +170,15 @@ document.addEventListener('DOMContentLoaded', function () {
             const player2 = player(player1Name.innerText);
             GameFlow(player1, player2)
         } else {
+            // hide inputs
             name1Input.className = 'hide';
             name2Input.className = 'hide';
             
+            // use User input as name tag
             player0Name.innerText = name1Input.value;
             player1Name.innerText = name2Input.value;
 
+            // Create new player object
             const player1 = player(name1Input.value);
             const player2 = player(name2Input.value);
             

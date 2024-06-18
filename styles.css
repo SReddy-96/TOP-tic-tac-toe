@@ -51,6 +51,13 @@ h6 {
     --box-background-color: hsl(0, 0%, 97%);
 }
 
+body {
+    font-family: "Roboto Condensed", system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
 .container {
     display: flex;
     align-items: center;
@@ -63,10 +70,9 @@ h6 {
 /* names */
 .names {
     padding: 0.5rem;
-    width: 40%;
+    width: min-content;
     height: 90px;
     display: flex;
-    justify-content: space-evenly;
     border-radius: 10px;
     margin: 10px 0px;
 }
@@ -75,13 +81,17 @@ h6 {
 .player1 {
     display: flex;
     flex-direction: column;
+    flex-wrap: nowrap;
     align-items: center;
     border: 1px solid hsl(240, 100%, 70%);
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
     padding: 0.5rem 1rem;
     border-radius: 10px;
-    height: 80px;
+    height: min-content;
+    width: max-content;
     background-color: var(--box-background-color);
+    margin: 0 1rem;
+
 
 }
 
@@ -118,29 +128,20 @@ h6 {
     background-color: white;
     cursor: pointer;
     font-size: 5rem;
+    font-weight: 700;
     text-align: center;
     line-height: 1.2;
+    box-shadow: inset 2px 2px 2px rgba(255, 255, 255, .4), inset -2px -2px 2px rgba(0, 0, 0, .4);
+    transition: box-shadow .2s ease-in-out;
 }
 
 .gameBox:hover {
     background-color: hsl(0, 0%, 94%);
 }
 
-@keyframes pushGameBox {
-    from {
-        box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
-    }
-
-    to {
-        box-shadow: none;
-    }
-}
-
+/* when box is pressed */
 .gameBox:active {
-    background-color: white;
-    animation-name: pushGameBox;
-    animation-duration: 2s;
-    animation-fill-mode: forwards;
+    box-shadow: inset 2px 2px 2px rgba(0, 0, 0, .8), inset -1px -1px 1px rgba(255, 255, 255, .4);
 }
 
 /* winner div */
